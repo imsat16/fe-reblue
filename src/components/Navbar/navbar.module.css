@@ -1,5 +1,5 @@
 .nav{
-    @apply sticky top-0 flex justify-center z-20 w-full
+    @apply  md:flex sticky top-0  justify-center z-20 w-full
 }
 
 .nav > div {
@@ -7,5 +7,5 @@
 }
 
 .menu {
-    @apply flex gap-5
+    @apply md:flex gap-5 hidden
 }
