@@ -1,0 +1,11 @@
+.nav{
+    @apply sticky top-0 flex justify-center z-20 w-full
+}
+
+.nav > div {
+    @apply h-[10vh] bg-white px-4 flex  w-full items-center justify-between
+}
+
+.menu {
+    @apply flex gap-5
+}
