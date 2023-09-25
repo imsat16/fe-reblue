@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    env:{
+      base_URL: 'https://api.reblue.id/api'
+    },
     images: {
         remotePatterns: [
           {

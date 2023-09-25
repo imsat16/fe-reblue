@@ -1,11 +1,19 @@
 .nav{
-    @apply  md:flex sticky top-0  justify-center z-20 w-full
+    @apply md:flex top-0 fixed justify-center z-20 w-full text-sm
 }
 
 .nav > div {
-    @apply h-[10vh] bg-white px-4 flex  w-full items-center justify-between
+    @apply md:h-[10vh] bg-white px-4 flex  w-full items-center justify-between
 }
 
 .menu {
-    @apply md:flex gap-5 hidden
+    @apply gap-5
+}
+
+.join-btn {
+    @apply bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] p-1 rounded-md text-white px-6;
+}
+
+.active{
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] font-medium
 }

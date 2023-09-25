@@ -1,0 +1,26 @@
+[
+    {
+        "img": "/icons/paper-shredder.png",
+        "title": "Kertas"
+    },
+    {
+        "img": "/icons/plastic-bag.png",
+        "title": "Plasik"
+    },
+    {
+        "img": "/icons/soda-can.png",
+        "title": "Aluminum"
+    },
+    {
+        "img": "/icons/error-page.png",
+        "title": "Elektronik"
+    },
+    {
+        "img": "/icons/water-bottle.png",
+        "title": "Gelas"
+    },
+    {
+        "img": "/icons/beam.png",
+        "title": "Besi / Baja"
+    }
+]
