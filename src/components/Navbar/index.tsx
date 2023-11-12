@@ -50,7 +50,10 @@ const NavbarComponent = () => {
                 <Link key={i} href={_.location} >
                     <p key={i} className={`
                       ${last == i && styles['join-btn']} 
-                      ${pathname === _.location ? styles.active : `hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-br hover:from-[#119BFF] hover:to-[#5DC7DE]`}
+                      ${pathname === _.location 
+                        ? styles.active 
+                        : ` ${i != last && 'hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-br hover:from-[#119BFF] hover:to-[#5DC7DE] '}
+                      `}
                     `}>
                       {_.content}
                     </p>
@@ -58,13 +61,6 @@ const NavbarComponent = () => {
               )
             })
           }
-          {/* <Link href={'/home'}>Home</Link>
-          <Link href={'/about'}>About</Link>
-          <Link href={'/services'}>Services</Link>
-          <Link href={'/partners'}>Partners</Link>
-          <Link href={'/comunity'}>Comunity</Link>
-          <Link href={'/contact'}>Contact Us</Link>
-          <Link href={'/auth'}>Auth</Link> */}
         </div>
       </div>
       {open &&
@@ -78,9 +74,6 @@ const NavbarComponent = () => {
               )
             })
           }
-          {/* <Link href={'/login'} >
-            Join
-          </Link> */}
         </div>
       }
     </nav>

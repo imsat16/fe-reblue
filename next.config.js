@@ -10,6 +10,16 @@ const nextConfig = {
             hostname: 'via.placeholder.com',
             port: '',
           },
+          {
+            protocol: 'https',
+            hostname: 'fakestoreapi.com',
+            port: '',
+          },
+          {
+            protocol: 'https',
+            hostname: 'images.unsplash.com',
+            port: '',
+          },
         ],
       },
 }

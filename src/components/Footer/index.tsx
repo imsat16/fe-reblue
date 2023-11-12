@@ -7,7 +7,7 @@ import Navbar from "../Navbar/navbar.json"
 const Footer = () => {
   return (
     <footer className='text-white bg-gradient-to-br from-[#119BFF] to-[#5DC7DE]'>
-        <div className="flex flex-col gap-5 lg:flex-row items-center text-center justify-between container mx-auto  p-4">
+        <div className="flex flex-col gap-5 lg:flex-row items-start text-center justify-between container mx-auto  p-4">
             <div className="">
                 <div className='relative min-w-20 h-20'>
                     <Image 
@@ -30,7 +30,7 @@ const Footer = () => {
             </div>
             <div className="">
                 <h3 className='text-lg font-semibold'>Pintasan</h3>
-                <div className='flex flex-col'>
+                <div className='flex flex-col md:items-start'>
                     {Navbar.map((_, i) => {
                         return(
                             <Link href={_.location} key={i} className='text-sm'>
@@ -40,12 +40,15 @@ const Footer = () => {
                     }).slice(0, -1)}
                 </div>
             </div>
-            <div className="">
-                <h3>Email</h3>
+            <div className="text-left">
+                <h3 className='font-semibold'>Email</h3>
                 <p className='text-sm'>support@reblue.id</p>
             </div>
         </div>
-        <div className="flex justify-center items-center gap-1 text-sm"><span className='text-xl'>©</span> 2023 Reblue Indonesia</div>
+        <div className="flex justify-center p-4 items-center gap-1 text-sm">
+            <span className='text-xl'>©</span> 
+            2023 Reblue Indonesia
+        </div>
     </footer>
   )
 }

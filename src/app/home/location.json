@@ -1,0 +1,30 @@
+[
+    {
+        "location_id": 1,
+        "title": "lokasi1",
+        "long":"12312123",
+        "lat":"43311232123",
+        "location":"jalan abc 1"
+    },
+    {
+        "location_id": 2,
+        "title": "lokasi2",
+        "long":"12312123",
+        "lat":"43311232123",
+        "location":"jalan def 2 "
+    },
+    {
+        "location_id": 3,
+        "title": "lokasi3",
+        "long":"12312123",
+        "lat":"43311232123",
+        "location":"jalan ghi 3"
+    },
+    {
+        "location_id": 4,
+        "title": "lokasi4",
+        "long":"12312123",
+        "lat":"43311232123",
+        "location":"jalan jkl 4"
+    }
+]

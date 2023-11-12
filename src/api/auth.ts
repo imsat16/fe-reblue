@@ -36,7 +36,7 @@ export const login = async (e: Login) => {
             data: e,
             headers:{
                 'Content-Type': 'application/json',
-                // Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`
             },
         });
         return res.data
