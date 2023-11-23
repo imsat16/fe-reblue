@@ -52,7 +52,7 @@ const AuthPages = () => {
                 setTimeout(() => {
                     setMsg("")
                     setStep(true)
-                }, 4000);
+                }, 2000);
                 // router.push('/verify', { scroll: false })
             }
         ).catch((err) => {
@@ -63,7 +63,7 @@ const AuthPages = () => {
         })
     }
 
-    const handleVerify = (e:any) => {
+    const handleVerify = async (e:any) => {
         e.preventDefault();
         setLoad(true)
 
@@ -72,19 +72,20 @@ const AuthPages = () => {
             otp: otp
         }).then(
             res => {
-                // console.log(res.message)
                 setLoad(false)
                 setMsg(res.message)
                 setMsgColor("bg-green-400")
-                
-                setTimeout(() => {
+                setCookie(null, 'token', res.token,{
+                    maxAge: 24 * 60 * 60,
+                })
+
+                setTimeout(()=>{
                     setCookie(null, 'token', res.token,{
                         maxAge: 24 * 60 * 60,
-                        path: '/',
                     })
-                    router.refresh()
-                    // router.push('/home', { scroll: false })
-                }, 3000);
+                }, 0);
+
+                window.location.href = '/home';
             }
         ).catch((err) => {
             setLoad(false)

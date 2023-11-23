@@ -10,7 +10,7 @@ const Sidebar = () => {
   const pathname = usePathname()
 
   return (
-    <aside className='hidden lg:flex flex-col gap-3 flex-1 min-w-[20vw] max-w-[20vw] h-screen bg-white p-4'>
+    <aside className='hidden lg:flex flex-col gap-3 flex-1 min-w-[20vw] max-w-[20vw] h-screen bg-white p-4 sticky top-0'>
       <Link href={'/profile'} className="flex bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white py-[10px] p-3 rounded-xl">
         <div className="flex items-center gap-3">
           <div className="relative w-[60px] h-[60px] bg-black/40 rounded-full">

@@ -12,6 +12,7 @@ interface Login {
 interface Register {
     phone_number : string,
     name: string,
+    role?: string
 }
 
 export const signup = async (e: Register) => {

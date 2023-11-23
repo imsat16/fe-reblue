@@ -1,0 +1,17 @@
+[
+    {
+        "label": "all"
+    },
+    {
+        "label": "Waiting",
+        "status": "Waiting"
+    },
+    {
+        "label": "Picked",
+        "status": "Picked"
+    },
+    {
+        "label": "Done",
+        "status": "Done"
+    }
+]
