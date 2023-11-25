@@ -4,6 +4,7 @@ import { login, verif } from '@/api/auth'
 import { useRouter } from 'next/navigation'
 import { parseCookies, setCookie } from 'nookies'
 import Link from 'next/link'
+import { roles } from '@/api/api'
 
 const AuthPages = () => {
     const router = useRouter();
@@ -19,7 +20,10 @@ const AuthPages = () => {
 
     React.useEffect(() => {
         if(token){
-            router.push("/home")
+            roles === 'user' && router.push("/home")
+            roles === 'admin' && router.push("/home/admin")
+            roles === 'picker' && router.push("/home/picker")
+            // router.push("/home")
             return;
         } else {
             return;
@@ -38,7 +42,6 @@ const AuthPages = () => {
     const handleSubmit = (e:any) => {
         e.preventDefault();
         setLoad(true)
-        console.log(tlp)
 
         login({
             phone_number: tlp
@@ -57,9 +60,11 @@ const AuthPages = () => {
             }
         ).catch((err) => {
             setLoad(false)
+            setMsg(err.message)
             setMsgColor("bg-red-400")
-
-            console.error("error bro")
+            setTimeout(() => {
+                setMsg("")
+            }, 3000);
         })
     }
 
@@ -99,7 +104,7 @@ const AuthPages = () => {
         <div className="bg-blue-500 h-screen flex items-center justify-center">
             <div className="bg-white lg:max-w-[40vw] p-4 rounded-md flex flex-col gap-4">
                 {msg&&
-                    <div className="bg-blue-400 text-center text-sm p-2">
+                    <div className={`${msgColor} text-center text-sm p-2 rounded-md`}>
                         {msg}
                     </div>
                 }
@@ -107,7 +112,7 @@ const AuthPages = () => {
                     !step ? 
                     <form 
                         onSubmit={handleSubmit} 
-                        className={` flex flex-col gap-3`}
+                        className={`flex flex-col gap-3`}
                     >
                         <label htmlFor="">Nomor Telepon</label>
                         <input 

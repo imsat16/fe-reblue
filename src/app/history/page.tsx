@@ -3,7 +3,6 @@ import MenuTab from "./tab.json"
 import moment from "moment"
 import { getMyReq } from '@/api/request'
 import Botnav from '@/components/Botnav'
-import Sidebar from '@/components/Sidebar'
 import Image from "next/image"
 import Link from "next/link"
 import * as React from 'react'
@@ -37,7 +36,6 @@ const HistoryPage = () => {
   
   return (
     <main className='flex flex-col md:flex-row gap-4 relative'>
-        <Sidebar/>
         <div className="p-11 px-8 w-full">
             <div className="bg-white p-4 rounded-lg">
               <h2>Riwayat Aktivitas</h2>
@@ -50,7 +48,8 @@ const HistoryPage = () => {
                           key={item} 
                           className={`hover:text-blue-400 hover:border-b-2 hover:border-blue-400 ${active === index ? 'border-b-2 border-blue-400 text-blue-400' : 'text-gray-500'}`}
                           onClick={()=>{
-                            getMyReq(item?.status)
+                            setData([])
+                            MyReq(item?.status)
                             // item?.status === undefined ? getMyReq() : MyReqStatus(item?.status),
                             setActive(index)
                           }}

@@ -6,8 +6,8 @@ import { getDetailReq } from '@/api/request'
 const Details = () => {
   const pathname = usePathname()
   const [data, setData] = React.useState([])
-
   const path  = pathname.slice(9, pathname.length);
+
   React.useEffect(() => {
     MyReqStatus()
   }, [])
@@ -17,11 +17,13 @@ const Details = () => {
       setData(res.data);
       console.log(res.data);
     }).catch((err) => {
-      console.error
+      console.error(err)
     })
   }
+
+  console.log(path)
   return (
-    <div>Details {path}</div>
+    <div>Detailsx {path} {JSON.stringify(data)}</div>
   )
 }
 

@@ -1,8 +1,8 @@
 'use client'
 import Sidebar from '@/components/Sidebar'
 import React from 'react'
-import dumdat from "./dummy.json"
-import dumloc from "./location.json"
+import dumdat from "../dummy.json"
+import dumloc from "../location.json"
 import { BsArrowLeftShort } from "react-icons/bs"
 import { parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
@@ -13,6 +13,7 @@ import { getItemList } from '@/api/item'
 import Botnav from '@/components/Botnav'
 import { reqJemput } from '@/api/request'
 import Link from 'next/link'
+import { roles } from '@/api/api'
 interface Item {
   category_id: string;
   item_id: string;
@@ -54,6 +55,12 @@ const HomePages = () => {
   const categoryMap: any = {};
   const [hide, setHide] = React.useState<boolean>(true);
   const [selectedCounts, setSelectedCounts] = React.useState<{ [category_id: string]: number }>({});
+
+  React.useEffect(()=>{
+    roles === 'admin' && router.replace('/home/admin')
+    roles === 'picker' && router.replace('/home/picker')
+    roles !== 'user' && router.back()
+  },[])
 
   React.useEffect(() => {
     if (!token) {
@@ -215,7 +222,7 @@ const HomePages = () => {
   }
 
   return (
-    <main className='flex gap-4 relative'>
+    < >
       {open &&
         <div
           // onClick={()=>setOpen(false)} 
@@ -267,7 +274,7 @@ const HomePages = () => {
         </div>
       }
 
-      <Sidebar />
+      {/* <Sidebar /> */}
 
       {success
         ?
@@ -417,7 +424,7 @@ const HomePages = () => {
 
       }
       <Botnav />
-    </main>
+    </>
   )
 }
 

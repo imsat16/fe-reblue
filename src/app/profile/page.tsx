@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { destroyCookie } from 'nookies'
 import React from 'react'
 import { BiImageAdd } from 'react-icons/bi';
+import { roles } from "@/api/api"
 
 const ProfilePages = () => {  
   const router = useRouter()
@@ -598,10 +599,10 @@ const ProfilePages = () => {
             {/* {JSON.stringify(data)} */}
               <div className="relative">
                 <div className="bg-white p-4 sticky top-5 flex flex-col gap-4 rounded-lg">
-                  {data ?
+                  {data?.avatar ?
                   <div className="w-[15vw] aspect-square relative rounded-lg">
-                  {data && <Image
-                    src={data[0]?.avatar.url}
+                  {data?.avatar && <Image
+                    src={data?.avatar.url}
                     alt='profile'
                     fill 
                     className="w-full h-full object-cover rounded-lg"
@@ -625,66 +626,70 @@ const ProfilePages = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-white p-4 flex flex-col gap-6 rounded-lg w-full">
-                <div className="">
-                  <h2 className='text-2xl font-medium'>John doe profile</h2>
-                  <div className="flex justify-between">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Nama</td>
-                          <td>: {data && data[0]?.user_id.name}</td> 
-                        </tr>
-                        <tr>
-                          <td>Gender</td>
-                          <td>: {data ? data[0]?.gender : 'none'}</td> 
-                        </tr>
-                        <tr>
-                          <td>Phone</td>
-                          <td>: {data && data[0]?.user_id.phone_number}</td> 
-                        </tr>
-                        <tr>
-                          <td>Email</td>
-                          <td>: {data ? data[0]?.email : 'none'}</td> 
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div className="flex flex-col items-center">
-                      <div className="bg-blue-400 w-16 h-16">
+              <div className="w-full ">
+                <div className="bg-white p-4 flex flex-col gap-6 rounded-lg">
+                  <div className="">
+                    <h2 className='text-2xl font-medium'>John doe profile</h2>
+                    <div className="flex justify-between">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Nama</td>
+                            <td>: {data && data?.user_id.name}</td> 
+                          </tr>
+                          <tr>
+                            <td>Gender</td>
+                            <td>: {data ? data?.gender : 'none'}</td> 
+                          </tr>
+                          <tr>
+                            <td>Phone</td>
+                            <td>: +{data && data?.user_id.phone_number}</td> 
+                          </tr>
+                          <tr>
+                            <td>Email</td>
+                            <td>: {data ? data?.email : 'none'}</td> 
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div className="flex flex-col items-center">
+                        <div className="bg-blue-400 w-16 h-16">
 
+                        </div>
+                        <p className='font-medium'>Beginer</p>
                       </div>
-                      <p className='font-medium'>Beginer</p>
                     </div>
                   </div>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-end justify-between">
-                    <div className="text-medium font-semibold">Alamat</div>
-                    <button type='button' onClick={()=>setOpenNewAddress(true)} className="p-2 bg-[#3CC462] rounded-md text-white">Tambah alamat Baru</button>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    {
-                      locData?.map((_:any, i:any)=>{
-                        const {label, recipient, contact, address} = _
-                        return (
-                          <div key={i} className="flex flex-col gap-2 p-4 border border-black/50 rounded-lg">
-                            <div className="flex flex-col gap-">
-                              <p className='text-sm font-semibold'>{label}</p>
-                              <p className='text-medium font-semibold'>{recipient}</p>
-                              {
-                                contact && <p>{contact}</p>
-                              }
-                              <p className='line-clamp-1'>{address}</p>
-                            </div>
-                            <div className="flex gap-4 text-xs font-semibold">
-                              <button onClick={()=>{setOpenDeleteLoc(true), setSelected(_)}}>Hapus</button>
-                              <button onClick={()=>{setOpenChangeAddress(true), detailLoc(_._id)}}>Ubah Alamat</button>
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
-                  </div>
+                  {
+                    roles === 'user' && (<div className="flex flex-col gap-4">
+                      <div className="flex items-end justify-between">
+                        <div className="text-medium font-semibold">Alamat</div>
+                        <button type='button' onClick={()=>setOpenNewAddress(true)} className="p-2 bg-[#3CC462] rounded-md text-white">Tambah alamat Baru</button>
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        {
+                          locData?.map((_:any, i:any)=>{
+                            const {label, recipient, contact, address} = _
+                            return (
+                              <div key={i} className="flex flex-col gap-2 p-4 border border-black/50 rounded-lg">
+                                <div className="flex flex-col gap-">
+                                  <p className='text-sm font-semibold'>{label}</p>
+                                  <p className='text-medium font-semibold'>{recipient}</p>
+                                  {
+                                    contact && <p>{contact}</p>
+                                  }
+                                  <p className='line-clamp-1'>{address}</p>
+                                </div>
+                                <div className="flex gap-4 text-xs font-semibold">
+                                  <button onClick={()=>{setOpenDeleteLoc(true), setSelected(_)}}>Hapus</button>
+                                  <button onClick={()=>{setOpenChangeAddress(true), detailLoc(_._id)}}>Ubah Alamat</button>
+                                </div>
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
+                    </div>)
+                  }
                 </div>
               </div>
           </div>

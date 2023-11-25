@@ -1,21 +1,12 @@
 import { api, token } from "./api";
 
-type Item = {
-    category_id: string
-    name: string
+type Category = {
+    name : String
 }
 
-type Name = {
-    name: string
-}
-
-interface IdCategory {
-    category_id: string
-}
-
-export async function getItemList() {
+export async function getAllCategories() {
     try {
-        const res = await api.get(`/admin/itemList`, {
+        const res = await api.get(`/admin/categoryTrash`, {
             headers: {
                 Authorization: `${token}`
             }
@@ -26,9 +17,9 @@ export async function getItemList() {
     }
 }
 
-export async function getItemByCategory(id:IdCategory) {
+export async function getOneCategory(id:number | string) {
     try {
-        const res = await api.get(`/admin/itemList/${id}`, {
+        const res = await api.get(`/admin/categoryTrash/${id}`, {
             headers: {
                 Authorization: `${token}`
             }
@@ -39,11 +30,11 @@ export async function getItemByCategory(id:IdCategory) {
     }
 }
 
-export const addItem = async (req:Item) => {
+export const addCategory = async (e:Category) => {
     try {
-        const res = await api.post(`/admin/itemTrash`, req,
+        const res = await api.post(`/admin/categoryTrash`, e,
         {
-            data: req,
+            data: e,
             headers:{
                 Authorization: `${token}`
             },
@@ -56,22 +47,22 @@ export const addItem = async (req:Item) => {
     }
 }
 
-export const deleteItem = async (id: any) => {
+export const deleteCategories = async (id: any) => {
     try {
-      const response = await api.delete(`/admin/itemTrash/${id}`, {
+        const response = await api.delete(`/admin/categoryTrash/${id}`, {
         headers: {
-          Authorization: `${token}`,
+            Authorization: `${token}`,
         },
-      });
-      return response.data;
+        });
+        return response.data;
     } catch (error: any) {
-      throw new Error(error.message);
+        throw new Error(error.message);
     }
 };
 
-export const changeItem = async (req:Name, id:string) => {
+export const changeCategories = async (req:Category, path:string) => {
     try {
-        const res = await api.put(`/admin/itemTrash/${id}`, req,
+        const res = await api.put(`/admin/categoryTrash/${path}`, req,
         {
             data: req,
             headers:{

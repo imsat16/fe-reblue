@@ -1,0 +1,28 @@
+{
+    "admin": [
+        {
+            "icons": "BiCategoryAlt",
+            "menu":"category",
+            "route":"/categories"
+        }
+    ],
+    "picker": [
+        {
+            "icons": "MdNotifications",
+            "menu":"Request",
+            "route":"/request"
+        }
+    ],
+    "user": [
+        {
+            "icons": "BsSend",
+            "menu":"Kirim Sampah",
+            "route":"/home"
+        },
+        {
+            "icons": "AiOutlineHistory",
+            "menu":"Riwayat",
+            "route":"/history"
+        }
+    ]
+}

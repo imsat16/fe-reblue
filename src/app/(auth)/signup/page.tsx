@@ -19,6 +19,16 @@ const AuthPages = () => {
     const cookies = parseCookies()
     const token = cookies.token;
 
+    React.useEffect(()=>{
+        if (tlp.startsWith('0')) {
+            // Gantilah angka 0 di awal dengan kode negara yang Anda inginkan
+            const countryCode = '62'; // Ganti dengan kode negara yang sesuai
+            const newTlp = countryCode + tlp.substring(1);
+            setTlp(newTlp);
+        }
+        console.log(tlp)
+    },[tlp])
+
     React.useEffect(() => {
         if(token){
             router.push("/home")
@@ -30,23 +40,49 @@ const AuthPages = () => {
 
     const handleSubmit = (e:any) => {
         e.preventDefault();
-        localStorage.setItem("phone", tlp)
-
-        signup({
-            name: name,
-            phone_number: tlp,
-            // role: 'admin'
-        }).then(
+        signup(
+            {
+                name: name,
+                phone_number:tlp
+            }
+        ).then(
             res => {
-                // router.push('/verify', { scroll: false })
                 setTimeout(() => {
                     setMsg("")
                     setStep(true)
                 }, 4000);
             }
         ).catch((err) => {
-            console.error("error bro")
+            setMsg(err.message)
+            setTimeout(() => {
+                setMsg("")
+            }, 3000)
         })
+        // phoneRegex.test(tlp)
+        // ? 
+        // signup({
+        //     name: name,
+        //     phone_number: tlp,
+        //     // role: 'admin'
+        // }).then(
+        //     res => {
+        //         setTimeout(() => {
+        //             setMsg("")
+        //             setStep(true)
+        //         }, 4000);
+        //     }
+        // ).catch((err) => {
+        //     setMsg(err.message)
+        //     setTimeout(() => {
+        //         setMsg("")
+        //     }, 3000)
+        // })
+        // : (
+        // setMsg("Nomor tidak berlaku di negara anda"),
+        // setTimeout(() => {
+        //     setMsg("")
+        // }, 3000))
+        
     }
 
     const handleVerify = (e:any) => {
@@ -89,6 +125,9 @@ const AuthPages = () => {
             console.error(err.message)
         })
     }
+
+    console.log(tlp)
+
   return (
     <div className=''>
         <div className="bg-blue-500 h-screen flex items-center justify-center">
@@ -96,9 +135,20 @@ const AuthPages = () => {
                 {!step ? 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                         <label htmlFor="">Nama</label>
-                        <input onChange={(e:any)=>setName(e.target.value)} type='tel' placeholder='John doe' className='border p-2 rounded-md'/>
+                        <input 
+                            onChange={(e:any)=>setName(e.target.value)} 
+                            type='text' 
+                            placeholder='John doe' 
+                            className='border p-2 rounded-md'
+                        />
                         <label htmlFor="">Nomor Telepon</label>
-                        <input onChange={(e:any)=>setTlp(e.target.value)} type='tel' placeholder='+62' className='border p-2 rounded-md'/>
+                        <input 
+                            onChange={(e:any)=>setTlp(e.target.value)} 
+                            type='tel' 
+                            placeholder='+62' 
+                            className='border p-2 rounded-md' 
+                            required
+                        />
                         <button className='bg-blue-400 p-2 rounded-md text-white' type='submit'>Masuk</button>
                     </form>
                 : 
@@ -123,6 +173,7 @@ const AuthPages = () => {
                         <button onClick={handleSubmit} className='text-sm' type='button'>Kirim ulang kode OTP</button>
                     </form>}
                 <p className='text-sm'>Punya akun? <Link href={'/login'}><span className='font-semibold'>Masuk</span></Link></p>
+                {msg}
             </div>
         </div>
     </div>

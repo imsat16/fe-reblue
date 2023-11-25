@@ -3,11 +3,21 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import {AiOutlineHistory, AiFillMessage} from "react-icons/ai"
-import {BsSend} from "react-icons/bs"
+import menuList from "./sidebar.json"
+import { getIconComponent } from './iconComponent'
+import {RolesType, roles}  from '@/api/api'
+
 
 const Sidebar = () => {
   const pathname = usePathname()
+  const role = roles;
+
+  console.log(pathname)
+
+  const getPage = () => {
+    return "/" + pathname.split("/")[1];
+  };
+
 
   return (
     <aside className='hidden lg:flex flex-col gap-3 flex-1 min-w-[20vw] max-w-[20vw] h-screen bg-white p-4 sticky top-0'>
@@ -30,36 +40,23 @@ const Sidebar = () => {
 
         </div>
       </Link>
-      <Link href={'/home'}>
-        <p className={`${pathname === '/home' ? 'bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white' : 'text-black/60'} flex items-center gap-2 p-3 rounded-lg`}>
-          <span className='text-2xl'>
-            <BsSend/>
-          </span>
-          <span>
-            Kirim Sampah
-          </span>
-        </p>
-      </Link>
-      <Link href={'/history'}>
-        <p className={`${pathname === '/history' ? 'bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white' : 'text-black/60'} flex items-center gap-2 p-3 rounded-lg`}>
-          <span className='text-2xl'>
-            <AiOutlineHistory/>
-          </span>
-          <span>
-            Riwayat
-          </span>
-        </p>
-      </Link>
-      <Link href={'/message'}>
-        <p className={`${pathname === '/message' ? 'bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white' : 'text-black/60'} flex items-center gap-2 p-3 rounded-lg`}>
-          <span className='text-2xl'>
-            <AiFillMessage/>
-          </span>
-          <span>
-            Pesan
-          </span>
-        </p>
-      </Link>
+      {menuList[role as RolesType]?.map((_:any, i:any)=>{
+        const {icons, menu, route} = _;
+        const IconComponent = getIconComponent(icons);
+        return(
+          <Link key={i} href={route}>
+            <div className={`${getPage() === route ? 'bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white' : 'text-black/60'} flex items-center gap-2 p-3 rounded-lg`}>
+              <span className='text-2xl'>
+                {IconComponent}
+              </span>
+              <span>
+                {menu}
+              </span>
+            </div>
+          </Link>
+        )
+      })}
+      
     </aside>
   )
 }

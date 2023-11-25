@@ -43,7 +43,7 @@ export async function getMyReq(status?:string) {
     }
 }
 
-export async function getDetailReq(id:string) {
+export async function getDetailReq(id:any) {
     try {
         const res = await api.get(`/reput/by_id/${id}`, {
             headers: {
