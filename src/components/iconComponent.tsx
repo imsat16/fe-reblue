@@ -1,4 +1,5 @@
 import { BsSend } from "react-icons/bs";
+import { MdNotifications } from "react-icons/md";
 import { BiCategoryAlt, BiColor } from "react-icons/bi";
 import { AiOutlineHistory } from "react-icons/ai";
 export const getIconComponent = (iconName:any) => {
@@ -11,6 +12,8 @@ export const getIconComponent = (iconName:any) => {
         return <BiColor />;
       case 'AiOutlineHistory':
         return <AiOutlineHistory />;
+      case 'MdNotifications':
+        return <MdNotifications />;
       default:
         return null;
     }

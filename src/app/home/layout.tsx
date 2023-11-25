@@ -1,3 +1,4 @@
+import Botnav from "@/components/Botnav"
 import Sidebar from "@/components/Sidebar"
 
 export default function HomeLayout({
@@ -11,6 +12,7 @@ export default function HomeLayout({
             <section className="w-full">
                 {children}
             </section>
+            <Botnav />
         </main>
     )
   }

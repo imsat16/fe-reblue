@@ -11,6 +11,8 @@ export default function UserLayout({
 }) {
     const router = useRouter()
     React.useEffect(() => {
+        roles === 'admin' && router.replace('/categories')
+        roles === 'picker' && router.replace('/home/picker')
         roles !== 'user' && router.back()
     }, [])
     return (

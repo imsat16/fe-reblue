@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 import menuList from "./sidebar.json"
-import { getIconComponent } from './iconComponent'
-import {RolesType, roles}  from '@/api/api'
+import { getIconComponent } from '../iconComponent'
+import { RolesType, roles } from '@/api/api'
 
 
 const Sidebar = () => {
@@ -40,10 +40,10 @@ const Sidebar = () => {
 
         </div>
       </Link>
-      {menuList[role as RolesType]?.map((_:any, i:any)=>{
-        const {icons, menu, route} = _;
+      {menuList[role as RolesType]?.map((_: any, i: any) => {
+        const { icons, menu, route } = _;
         const IconComponent = getIconComponent(icons);
-        return(
+        return (
           <Link key={i} href={route}>
             <div className={`${getPage() === route ? 'bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white' : 'text-black/60'} flex items-center gap-2 p-3 rounded-lg`}>
               <span className='text-2xl'>
@@ -56,7 +56,7 @@ const Sidebar = () => {
           </Link>
         )
       })}
-      
+
     </aside>
   )
 }

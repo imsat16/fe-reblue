@@ -1,0 +1,30 @@
+[
+    {
+        "location": "/",
+        "content":"Home"
+    },
+    {
+        "location": "/about",
+        "content":"About"
+    },
+    {
+        "location": "/services",
+        "content":"Services"
+    },
+    {
+        "location": "/contact",
+        "content":"Contact"
+    },
+    {
+        "location": "/comunity",
+        "content":"Comunity"
+    },
+    {
+        "location": "/store",
+        "content":"Store"
+    },
+    {
+        "location": "/login",
+        "content":"Join"
+    }
+]

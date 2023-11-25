@@ -10,16 +10,24 @@ const CategoriesPages = () => {
   const [name, setName]:any = React.useState("")
 
   React.useEffect(() => {
+    getData()
+  }, [])
+
+  async function getData() {
     getAllCategories().then((res)=>{
       console.log(res.data)
       setData(res.data)
     })
-  }, [])
+  }
 
   async function handleAdd(e:React.FormEvent) {
     e.preventDefault()
-    addCategory({name:name}).then((res)=>{
-      console.log("X", res)
+    addCategory({name:name})
+      .then((res)=>{
+        getData()
+        setOpenAdd(false)
+    }).catch((err)=>{
+      console.error(err)
     })
     // console.log(x)
   }
@@ -65,7 +73,7 @@ const CategoriesPages = () => {
           Tambah Item
           </button>
       </div>
-      <div className="flex flex-wrap justify-between md:justify-normal gap-2">
+      <div className="flex flex-col md:flex-row flex-wrap justify-between md:justify-normal gap-2">
         {data.map((_:any,i:any)=>{
           const {name} = _
           return(

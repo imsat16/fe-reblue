@@ -43,6 +43,19 @@ export async function getMyReq(status?:string) {
     }
 }
 
+export async function getReq(status?:string) {
+    try {
+        const res = await api.get(`/reput/get_request${status && `?status=${status}`}`, {
+            headers: {
+                Authorization: `${token}`
+            }
+        });
+        return res.data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+}
+
 export async function getDetailReq(id:any) {
     try {
         const res = await api.get(`/reput/by_id/${id}`, {

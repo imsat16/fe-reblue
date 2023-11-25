@@ -5,13 +5,31 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 import {AiOutlineHistory, AiFillMessage} from "react-icons/ai"
 import {BsSend} from "react-icons/bs"
+import { getIconComponent } from '../iconComponent'
+import menuList from "./botnav.json"
+import { RolesType, roles } from '@/api/api'
+
 
 const Botnav = () => {
   const pathname = usePathname()
+  const role = roles;
 
   return (
     <section className='fixed flex lg:hidden justify-around items-center bottom-0 bg-white w-full p-2'>
-        <Link href={'/home'}>
+      {menuList[role as RolesType]?.map((_: any, i: any) => {
+        const { icons, route } = _;
+        const IconComponent = getIconComponent(icons);
+        return(
+          <Link key={i}  href={route}>
+            <p className={`${pathname === route ? 'bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white' : 'text-black/60'} flex items-center gap-2 p-1 rounded-lg`}>
+              <span className='text-lg p-1'>
+                {IconComponent}
+              </span>
+            </p>
+          </Link>
+        )
+      })}
+        {/* <Link href={'/home'}>
           <p className={`${pathname === '/home' ? 'bg-gradient-to-br from-[#119BFF] to-[#5DC7DE] text-white' : 'text-black/60'} flex items-center gap-2 p-1 rounded-lg`}>
             <span className='text-lg p-1'>
               <BsSend/>
@@ -31,7 +49,7 @@ const Botnav = () => {
               <AiFillMessage/>
             </span>
           </p>
-        </Link>
+        </Link> */}
         <Link href={'/profile'} className="">
             <div className="relative w-[30px] h-[30px] bg-black/40 rounded-full border-2 border-[#119BFF] ">
                 <Image

@@ -4,6 +4,7 @@ import { signup, verif } from '@/api/auth'
 import { useRouter } from 'next/navigation';
 import { parseCookies, setCookie } from 'nookies';
 import Link from 'next/link';
+import { MdArrowBack } from 'react-icons/md';
 
 const AuthPages = () => {
     const router = useRouter();
@@ -131,6 +132,7 @@ const AuthPages = () => {
   return (
     <div className=''>
         <div className="bg-blue-500 h-screen flex items-center justify-center">
+            <button onClick={()=>router.replace('/')} className='absolute top-2 left-2 flex items-center text-white'><MdArrowBack/>Back</button>
             <div className="bg-white lg:max-w-[40vw] p-4 rounded-md flex flex-col gap-4">
                 {!step ? 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-3">

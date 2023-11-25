@@ -7,8 +7,8 @@ import Navbar from "../Navbar/navbar.json"
 const Footer = () => {
   return (
     <footer className='text-white bg-gradient-to-br from-[#119BFF] to-[#5DC7DE]'>
-        <div className="flex flex-col gap-5 lg:flex-row items-start text-center justify-between container mx-auto  p-4">
-            <div className="">
+        <div className="flex flex-col gap-5 lg:flex-row items-start lg:text-center justify-between container mx-auto  p-4">
+            <div className="flex flex-col gap-3">
                 <div className='relative min-w-20 h-20'>
                     <Image 
                         src={'/logo-text-white.svg'} 
@@ -28,9 +28,9 @@ const Footer = () => {
                     </p>
                 </Link>
             </div>
-            <div className="">
+            <div className="flex flex-col gap-3">
                 <h3 className='text-lg font-semibold'>Pintasan</h3>
-                <div className='flex flex-col md:items-start'>
+                <div className='flex flex-col md:items-start '>
                     {Navbar.map((_, i) => {
                         return(
                             <Link href={_.location} key={i} className='text-sm'>
@@ -40,9 +40,12 @@ const Footer = () => {
                     }).slice(0, -1)}
                 </div>
             </div>
-            <div className="text-left">
-                <h3 className='font-semibold'>Email</h3>
-                <p className='text-sm'>support@reblue.id</p>
+            <div className="text-left flex flex-col gap-3">
+                <h3 className='font-semibold'>Email & Contact</h3>
+                <div className="flex flex-col gap-2">
+                    <p className='text-sm'>support@reblue.id</p>
+                    <p className='text-sm'>+62 896-9760-9532</p>
+                </div>
             </div>
         </div>
         <div className="flex justify-center p-4 items-center gap-1 text-sm">

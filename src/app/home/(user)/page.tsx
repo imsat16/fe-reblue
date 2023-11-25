@@ -1,8 +1,5 @@
 'use client'
-import Sidebar from '@/components/Sidebar'
 import React from 'react'
-import dumdat from "../dummy.json"
-import dumloc from "../location.json"
 import { BsArrowLeftShort } from "react-icons/bs"
 import { parseCookies } from 'nookies';
 import { useRouter } from 'next/navigation';
@@ -26,6 +23,7 @@ const HomePages = () => {
   const token = cookies.token;
 
   const [open, setOpen] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
   const [openPreview, setOpenPreview] = React.useState(false)
   const [success, setSuccess] = React.useState(false)
 
@@ -56,12 +54,6 @@ const HomePages = () => {
   const [hide, setHide] = React.useState<boolean>(true);
   const [selectedCounts, setSelectedCounts] = React.useState<{ [category_id: string]: number }>({});
 
-  React.useEffect(()=>{
-    roles === 'admin' && router.replace('/home/admin')
-    roles === 'picker' && router.replace('/home/picker')
-    roles !== 'user' && router.back()
-  },[])
-
   React.useEffect(() => {
     if (!token) {
       router.push("/login")
@@ -77,7 +69,6 @@ const HomePages = () => {
     setTotalWeight(calculatedTotalWeight);
   }, [data]);
 
-  //token
   React.useEffect(() => {
     if (token) {
       router.push("/home")
@@ -194,23 +185,25 @@ const HomePages = () => {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true)
 
     reqJemput({
       location_id: selectedLoc?._id,
       items: data,
       image: selectedImage
     }).then((res) => {
-        setSuccess(true)
-        setSelectedLoc("")
-        setData(undefined)
-        setSelectedImage(null)
-        setSelected(undefined)
-        setSelectedCounts({})
-        setPreviewImage("")
-        setTimeout(() => {
-          setSuccess(false)
-        }, 5000);
-        console.log(res)
+      setLoading(false)
+      setSuccess(true)
+      setSelectedLoc("")
+      setData(undefined)
+      setSelectedImage(null)
+      setSelected(undefined)
+      setSelectedCounts({})
+      setPreviewImage("")
+      setTimeout(() => {
+        setSuccess(false)
+      }, 5000);
+      console.log(res)
     })
 
     const xyz = {
@@ -226,7 +219,7 @@ const HomePages = () => {
       {open &&
         <div
           // onClick={()=>setOpen(false)} 
-          className="bg-black/40 fixed z-10 w-full min-h-screen flex items-center justify-center"
+          className="bg-black/40 fixed left-0 z-10 w-full min-h-screen flex items-center justify-center"
         >
           <div
             className="flex flex-col gap-4 bg-white w-[50vw] p-4 rounded-lg"
@@ -276,128 +269,130 @@ const HomePages = () => {
 
       {/* <Sidebar /> */}
 
-      {success
-        ?
-        <div
-          className='w-full flex flex-col lg:flex-row gap-5 p-11 px-8'
-        >
-          <div className="flex flex-col justify-center uppercase items-center gap-4 bg-white flex-1 md:min-h-[500px] h-[50vh] rounded-lg overflow-y-scroll">
-            <h3 className='text-3xl font-semibold'>request berhasil terkirim</h3>
-            <h4 className='text-2xl'>tunggu aku menjemput ya</h4>
-            <Link href="/history" className='text-sm text-blue-400'>cek request</Link>
-          </div>
-        </div>
-        :
-        <form
-          onSubmit={handleSubmit}
-          className='w-full flex flex-col lg:flex-row gap-5 p-11 px-8'
-        >
-          <div className="flex flex-col gap-4 bg-white flex-1 md:min-h-[500px] h-[50vh] rounded-lg overflow-y-scroll">
-            <div className="sticky top-0 bg-white p-4">
-              <h2 className='text-2xl font-semibold'>Reput Services</h2>
-              <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem voluptatum ex laborum ratione cumque repellendus voluptates est odit eius?</p>
-              {/* <div>{JSON.stringify(data)}{data.length}</div> */}
+      {!loading ? 
+        <div className="">
+        {success
+          ?
+          <div
+            className='w-full flex flex-col lg:flex-row gap-5 p-11 px-8'
+          >
+            <div className="flex flex-col justify-center uppercase items-center gap-4 bg-white flex-1 md:min-h-[500px] h-[50vh] rounded-lg overflow-y-scroll">
+              <h3 className='text-3xl font-semibold'>request berhasil terkirim</h3>
+              <h4 className='text-2xl'>tunggu aku menjemput ya</h4>
+              <Link href="/history" className='text-sm text-blue-400'>cek request</Link>
             </div>
-            {
-              hide ?
-                <div className="flex flex-col gap-4 p-4 pt-0">
-                  {
-                    itemList.length < 1 ? 'loading' : itemList?.map((_: any, i: number) => {
-                      return (
-                        <div key={i} onClick={() => console.log(itemList)} className="border rounded-lg p-2 px-4 flex justify-between items-center w-full">
-                          <div className="flex items-center">
-                            <div className="h-20 w-20 border flex items-center justify-center">
+          </div>
+          :
+          <form
+            onSubmit={handleSubmit}
+            className='w-full flex flex-col lg:flex-row gap-5 p-11 px-8'
+          >
+            <div className="flex flex-col gap-4 bg-white flex-1 md:min-h-[500px] h-[50vh] rounded-lg overflow-y-scroll">
+              <div className="sticky top-0 bg-white p-4">
+                <h2 className='text-2xl font-semibold'>Reput Services</h2>
+                <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id exercitationem voluptatum ex laborum ratione cumque repellendus voluptates est odit eius?</p>
+                {/* <div>{JSON.stringify(data)}{data.length}</div> */}
+              </div>
+              {
+                hide ?
+                  <div className="flex flex-col gap-4 p-4 pt-0">
+                    {
+                      itemList.length < 1 ? 'loading' : itemList?.map((_: any, i: number) => {
+                        return (
+                          <div key={i} onClick={() => console.log(itemList)} className="border rounded-lg p-2 px-4 flex justify-between items-center w-full">
+                            <div className="flex items-center">
+                              {/* <div className="h-20 w-20 border flex items-center justify-center">
                               {_.category}
+                            </div> */}
+                              <h3>{_.category} ({selectedCounts[_.category_id] || 0} dipilih)</h3>
                             </div>
-                            <h3>{_.category} ({selectedCounts[_.category_id] || 0} dipilih)</h3>
+                            <button
+                              className='bg-blue-400 px-2 p-1 rounded-lg'
+                              type='button'
+                              onClick={() => handleClickCategory(_)}
+                            >
+                              Select
+                            </button>
                           </div>
-                          <button
-                            className='bg-blue-400 px-2 p-1 rounded-lg'
-                            type='button'
-                            onClick={() => handleClickCategory(_)}
-                          >
-                            Select
-                          </button>
-                        </div>
-                      )
-                    })
-                  }
-                </div>
-                :
-                <div className="flex flex-col items-start gap-4 p-4 pt-0">
-                  <button className='flex items-center gap-.5' onClick={() => setHide(true)}> <span className='text-2xl'><BsArrowLeftShort /></span> Back</button>
-                  {/* {mergedData.map((x,y) => (
+                        )
+                      })
+                    }
+                  </div>
+                  :
+                  <div className="flex flex-col items-start gap-4 p-4 pt-0">
+                    <button className='flex items-center gap-.5' onClick={() => setHide(true)}> <span className='text-2xl'><BsArrowLeftShort /></span> Back</button>
+                    {/* {mergedData.map((x,y) => (
                   <p key={y} onClick={()=>console.log(mergedData)} className={x.item_id ? 'text-red-500' : ''}>{x.title}</p>
                 ))} */}
-                  {
-                    selected?.map((_: any, i: any) => {
-                      const category = categoryMap[_.item_id];
-                      const itemSelected = categoryMap[_.item_id] === categoryMap[_.category_id];
-                      const weight = weightData[_.item_id] ?? null;
-                      return (
-                        <div key={i} className=" w-full">
-                          <div onClick={() => console.log(JSON.stringify(selected))} className="flex justify-between items-center">
+                    {
+                      selected?.map((_: any, i: any) => {
+                        const category = categoryMap[_.item_id];
+                        const itemSelected = categoryMap[_.item_id] === categoryMap[_.category_id];
+                        const weight = weightData[_.item_id] ?? null;
+                        return (
+                          <div key={i} className=" w-full">
+                            <div onClick={() => console.log(JSON.stringify(selected))} className="flex justify-between items-center">
 
-                            {/* <p onClick={()=>console.log(data)} className={_.item_id === activedCategory.jenis[i].item_id ? 'text-red-500' : ''}>{_.title}</p> */}
-                            <p onClick={() => console.log({ weight })} className={itemSelected ? '' : 'text-blue-500'}>{_.name}</p>
-                            <div className="flex gap-2 ">
-                              <div className="border rounded-lg p-1">
-                                <input
-                                  type="number"
-                                  id={`weight-${_.item_id}`}
-                                  className='inline-block w-8 '
-                                  value={weight ?? ''}
-                                  onChange={(e) => handleWeightChange(_.item_id, parseFloat(e.target.value))}
-                                />
-                                <label htmlFor={`weight-${_.item_id}`}>Kg</label>
+                              {/* <p onClick={()=>console.log(data)} className={_.item_id === activedCategory.jenis[i].item_id ? 'text-red-500' : ''}>{_.title}</p> */}
+                              <p onClick={() => console.log({ weight })} className={itemSelected ? '' : 'text-blue-500'}>{_.name}</p>
+                              <div className="flex gap-2 ">
+                                <div className="border rounded-lg p-1">
+                                  <input
+                                    type="number"
+                                    id={`weight-${_.item_id}`}
+                                    className='inline-block w-8 '
+                                    value={weight ?? ''}
+                                    onChange={(e) => handleWeightChange(_.item_id, parseFloat(e.target.value))}
+                                  />
+                                  <label htmlFor={`weight-${_.item_id}`}>Kg</label>
+                                </div>
+                                <button
+                                  type='button'
+                                  className='bg-blue-300 px-2 rounded-lg'
+                                  onClick={() => { handleClickSave(_), setHide(true) }}
+                                // disabled={_.isSelected}
+                                >
+                                  simpan
+                                </button>
                               </div>
-                              <button
-                                type='button'
-                                className='bg-blue-300 px-2 rounded-lg'
-                                onClick={() => { handleClickSave(_), setHide(true) }}
-                              // disabled={_.isSelected}
-                              >
-                                simpan
-                              </button>
                             </div>
                           </div>
-                        </div>
-                      )
-                    })
-                  }
-                </div>
-            }
-          </div>
+                        )
+                      })
+                    }
+                  </div>
+              }
+            </div>
 
-          <div className="bg-white flex-1 flex flex-col rounded-lg md:min-h-[500px] h-[50vh]">
-            {/* {JSON.stringify(data)} */}
-            <div className="p-9  w-full flex flex-col gap-4">
-              <div className="group w-full  hover:bg-black/30 rounded-xl relative flex justify-center items-center aspect-video bg-[#F2F2F2]">
-                {/* <p className='flex flex-col items-center text-5xl'>
+            <div className="bg-white flex-1 flex flex-col rounded-lg md:min-h-[500px] h-[50vh]">
+              {/* {JSON.stringify(data)} */}
+              <div className="p-9  w-full flex flex-col gap-4">
+                <div className="group w-full  hover:bg-black/30 rounded-xl relative flex justify-center items-center aspect-video bg-[#F2F2F2]">
+                  {/* <p className='flex flex-col items-center text-5xl'>
                 <BiImageAdd/>
                 <span className="text-base">tambah gambar</span>
               </p> */}
-                {previewImage
-                  ?
-                  <Image
-                    onClick={() => setOpenPreview(true)}
-                    fill
-                    className='object-cover rounded-md'
-                    src={previewImage}
-                    alt="Gambar"
-                  />
-                  : <div
-                    className='flex h-full relative w-full items-center justify-center bg-gray-300 rounded-md '
-                  >
-                    <input type="file" className='w-full h-full bg-red-400 opacity-0 absolute' onChange={handleImageUpload} />
-                    <p className={`${previewImage ? 'hidden group-hover:flex z-10' : 'flex'} flex-col items-center text-5xl`}>
-                      <BiImageAdd />
-                      <span className="text-base">{previewImage ? 'edit gambar' : 'tambah gambar'}</span>
-                    </p>
-                  </div>
-                }
+                  {previewImage
+                    ?
+                    <Image
+                      onClick={() => setOpenPreview(true)}
+                      fill
+                      className='object-cover rounded-md'
+                      src={previewImage}
+                      alt="Gambar"
+                    />
+                    : <div
+                      className='flex h-full relative w-full items-center justify-center bg-gray-300 rounded-md '
+                    >
+                      <input type="file" className='w-full h-full bg-red-400 opacity-0 absolute' onChange={handleImageUpload} />
+                      <p className={`${previewImage ? 'hidden group-hover:flex z-10' : 'flex'} flex-col items-center text-5xl`}>
+                        <BiImageAdd />
+                        <span className="text-base">{previewImage ? 'edit gambar' : 'tambah gambar'}</span>
+                      </p>
+                    </div>
+                  }
 
-                {/* <div 
+                  {/* <div 
                     className='group-hover:flex hidden items-center justify-center bg-gray-300 rounded-md '
                   >
                   <input type="file" className='w-full h-full bg-red-400 opacity-0 absolute' onChange={handleImageUpload} />
@@ -406,22 +401,36 @@ const HomePages = () => {
                     <span className="text-base">edit gambar</span>
                   </p>
               </div> */}
-                {/* <Image
+                  {/* <Image
                 src={'https://images.unsplash.com/photo-1682687982134-2ac563b2228b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
                 alt=''
                 fill
                 className='object-cover rounded-xl opacity-80'
               /> */}
+                </div>
+                {previewImage && <button onClick={() => setPreviewImage("")} type='button'>hapus gambar</button>}
+                <div onClick={() => setOpen(!open)} className="cursor-pointer text-sm p-2 border rounded-lg border-black">
+                  {selectedLoc ? selectedLoc?.address : "Pilih lokasi tujuan"}
+                </div>
+                <button 
+                  disabled={data?.length < 1 || selectedLoc?._id === undefined || previewImage === ""} 
+                  className='bg-blue-400 rounded-lg p-4 disabled:bg-gray-300' type='submit'
+                >
+                    Kirim
+                </button>
               </div>
-              {previewImage && <button onClick={() => setPreviewImage("")} type='button'>hapus gambar</button>}
-              <div onClick={() => setOpen(!open)} className="cursor-pointer text-sm p-2 border rounded-lg border-black">
-                {selectedLoc ? selectedLoc?.address : "Pilih lokasi tujuan"}
-              </div>
-              <button disabled={data?.length < 1 || selectedLoc?._id === undefined || previewImage === ""} className='bg-blue-400 rounded-lg p-4 disabled:bg-gray-300' type='submit'>Total Sampah | {totalWeight} Kg | {totalWeight * 100}</button>
             </div>
-          </div>
-        </form>
+          </form>
 
+        }
+      </div>
+      : <div
+          className='w-full flex flex-col lg:flex-row gap-5 p-11 px-8'
+        >
+          <div className="flex flex-col justify-center uppercase items-center gap-4 bg-white flex-1 md:min-h-[500px] h-[50vh] rounded-lg overflow-y-scroll">
+            <h3 className='text-3xl font-semibold'>Sedang memperoses Permintaan</h3>
+          </div>
+        </div>
       }
       <Botnav />
     </>
