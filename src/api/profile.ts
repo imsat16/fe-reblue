@@ -42,11 +42,11 @@ export const changePict = async (pict:Pict) => {
 
 export const changeInfo = async (req:Info) => {
     try {
-        const res = await api.post(`/user/bio_data`, req,
+        const res = await api.put(`/user/bio_data`, req,
         {
             data: req,
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `${token}`
             },
         }
         );

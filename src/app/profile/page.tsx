@@ -529,12 +529,19 @@ const ProfilePages = () => {
                         onChange={(e:any)=>setGender(e.target.value)}
                       >
                       <option 
-                        value="pria"
+                        disabled
+                        selected={true}
+                        value=""
+                      >
+                        Select
+                      </option>
+                      <option 
+                        value="Pria"
                       >
                         Pria
                       </option>
                       <option 
-                        value="wanita"
+                        value="Wanita"
                       >
                         Wanita
                       </option>
