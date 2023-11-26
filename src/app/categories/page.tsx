@@ -15,7 +15,6 @@ const CategoriesPages = () => {
 
   async function getData() {
     getAllCategories().then((res)=>{
-      console.log(res.data)
       setData(res.data)
     })
   }
@@ -29,7 +28,6 @@ const CategoriesPages = () => {
     }).catch((err)=>{
       console.error(err)
     })
-    // console.log(x)
   }
   
   return (

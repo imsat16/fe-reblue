@@ -27,7 +27,6 @@ const AuthPages = () => {
             const newTlp = countryCode + tlp.substring(1);
             setTlp(newTlp);
         }
-        console.log(tlp)
     },[tlp])
 
     React.useEffect(() => {
@@ -95,10 +94,8 @@ const AuthPages = () => {
             otp: otp
         }).then(
             res => {
-                // console.log(res.message)
                 setLoad(false)
                 setMsg(res.message)
-                console.log(res.message)
                 setCookie(null, 'token', res.token,{
                     maxAge: 24 * 60 * 60,
                 })
@@ -127,7 +124,6 @@ const AuthPages = () => {
         })
     }
 
-    console.log(tlp)
 
   return (
     <div className=''>

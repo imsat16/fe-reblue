@@ -1,0 +1,17 @@
+[
+    {
+        "label": "all User"
+    },
+    {
+        "label": "User",
+        "status": "user"
+    },
+    {
+        "label": "Picker",
+        "status": "picker"
+    },
+    {
+        "label": "Admin",
+        "status": "admin"
+    }
+]

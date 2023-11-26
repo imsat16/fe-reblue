@@ -25,31 +25,27 @@ const Details = () => {
   async function MyReqStatus() {
     getDetailReq(path).then((res: any) => {
       setData(res.data);
-      console.log(res.data);
     }).catch((err) => {
       console.error(err)
     })
   }
 
   function Confirm() {
-    console.log(path)
     confirmRequest(path)
     .then(()=>{
       MyReqStatus()
     })
     .catch((error)=>{
-      console.log(error)
     })
   }
 
   async function Done() {
-    console.log(path)
     doneRequest(path)
     .then(()=>{
       MyReqStatus()
     })
     .catch((error)=>{
-      console.log(error)
+      console.error(error)
     })
   }
 
@@ -59,7 +55,7 @@ const Details = () => {
       router.back()
     })
     .catch((error)=>{
-      console.log(error)
+      console.error(error)
     })
   }
 

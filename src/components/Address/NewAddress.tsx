@@ -6,7 +6,6 @@ const NewAddress = (opened:boolean) => {
 
   const handleClick = () => {
     setOpen(!open); // Toggle the open state
-    console.log({opened, open})
   };
 
   return (

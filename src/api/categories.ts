@@ -42,7 +42,6 @@ export const addCategory = async (e:Category) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
         throw new Error(error.response.data.message);
     }
 }
@@ -73,7 +72,6 @@ export const changeCategories = async (req:Category, path:string) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
         throw new Error(error.response.data.message);
     }
 }

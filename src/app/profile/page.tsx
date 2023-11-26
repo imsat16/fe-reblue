@@ -1,6 +1,6 @@
 'use client'
 import { changeLocation, createLocation, getDetailLocation, getMyLocation, removeLocation } from '@/api/location'
-import { changeInfo, getMyProfile } from '@/api/profile'
+import { changeInfo, changePict, getMyProfile } from '@/api/profile'
 import { IoClose } from "react-icons/io5";
 import Botnav from '@/components/Botnav'
 import Sidebar from '@/components/Sidebar'
@@ -42,7 +42,6 @@ const ProfilePages = () => {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file: any = event.target.files?.[0];
-    console.log(file)
     if (file) {
       setPreviewImage(URL.createObjectURL(file));
       setSelectedImage(file);
@@ -58,7 +57,6 @@ const ProfilePages = () => {
     getMyLocation()
     .then((res:any)=>{
       setLocData(res.data)
-      console.log(res.data)
     })
     .catch((err) => {
       console.error(err)
@@ -69,7 +67,6 @@ const ProfilePages = () => {
     getMyProfile()
     .then((res:any)=>{
       setData(res.data)
-      console.log("pr",res.data)
     })
     .catch((err) => {
       console.error(err)
@@ -77,7 +74,6 @@ const ProfilePages = () => {
   }
 
   async function detailLoc(id:string) {
-    console.log(id)
     getDetailLocation(id)
     .then((res:any)=>{
       setdetailsLoc(res.data)
@@ -111,7 +107,6 @@ const ProfilePages = () => {
       setContact("")
       setOpenNewAddress(false)
       setMsg(res.message)
-      console.log(res.data);
     }).catch((err) => {
       setMsg(err.message)
       console.error(err)
@@ -135,7 +130,6 @@ const ProfilePages = () => {
       setContact("")
       setOpenChangeAddress(false)
       setMsg(res.message)
-      console.log(res.data);
     }).catch((err) => {
       setMsg(err.message)
       console.error(err)
@@ -148,7 +142,6 @@ const ProfilePages = () => {
       myLoc()
       setOpenDeleteLoc(false)
       setMsg(res.message)
-      console.log(res.data);
     }).catch((err) => {
       setMsg(err.message)
       console.error(err)
@@ -157,11 +150,16 @@ const ProfilePages = () => {
 
   function handleChangePict(e:React.FormEvent){
     e.preventDefault()
-    const xyz = {
-      images: selectedImage,
-      previes: previewImage
-    }
-    console.log(xyz)
+    changePict({
+      avatar : selectedImage
+    }).then((res:any)=>{
+      myProf()
+      setSelectedImage(null)
+      setPreviewImage("")
+      setOpenUpdatePict(false)
+    }).catch((err)=>{
+      alert(err.message)
+    })
   }
 
   function handleChangeInfo(e:React.FormEvent){
@@ -171,11 +169,14 @@ const ProfilePages = () => {
       gender: gender
     }).then((res: any) => {
       myLoc()
+      myProf()
       setEmail("")
       setGender("")
       setOpenUpdateInfo(false)
       setMsg(res.message)
-      console.log(res.data);
+      setTimeout(() => {
+        setMsg("")
+      }, 300);
     }).catch((err) => {
       setMsg(err.message)
       console.error(err)

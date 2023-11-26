@@ -51,7 +51,7 @@ export const addItem = async (req:Item) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }
@@ -82,7 +82,7 @@ export const changeItem = async (req:Name, id:string) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }

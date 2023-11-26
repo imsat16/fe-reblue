@@ -19,7 +19,6 @@ const HistoryPage = () => {
   async function MyReq(status?:string) {
     getMyReq(status ? status : '').then((res: any) => {
       setData(res.data);
-      console.log(res.data);
     }).catch((err) => {
       console.error
     })
@@ -28,7 +27,6 @@ const HistoryPage = () => {
   // async function MyReqStatus(status:string) {
   //   getMyReqStatus(status).then((res: any) => {
   //     setData(res.data);
-  //     console.log(res.data);
   //   }).catch((err) => {
   //     console.error
   //   })

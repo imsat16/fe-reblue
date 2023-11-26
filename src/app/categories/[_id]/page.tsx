@@ -30,7 +30,6 @@ const DetailsCategories = () => {
   async function getItem() {
     getItemByCategory(path)
     .then((res)=>{
-      console.log(res.data)
       setData(res.data)
     })
   }
@@ -47,7 +46,6 @@ const DetailsCategories = () => {
     const x = { 
       name, path
     }
-    console.log(x)
   }
 
   async function handleDeleteCategory() {
@@ -61,7 +59,6 @@ const DetailsCategories = () => {
   }
 
   async function handleDeleteItem() {
-    console.log(selected)
     deleteItem(selected?.item_id)
     .then(()=>{
       getItem()

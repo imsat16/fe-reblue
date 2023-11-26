@@ -48,7 +48,6 @@ const AuthPages = () => {
             phone_number: tlp
         }).then(
             res => {
-                // console.log("berhasil")
                 setLoad(false)
                 setMsg(res.message)
                 setMsgColor("bg-green-400")

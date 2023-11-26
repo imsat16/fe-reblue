@@ -26,7 +26,6 @@ export const signup = async (e: Register) => {
         });
         return res.data
     } catch (error:any) {
-        // console.log(error.response.data.message)
         throw new Error(error.response.data.message);
     }
 }
@@ -42,7 +41,6 @@ export const login = async (e: Login) => {
         });
         return res.data
     } catch (error:any) {
-        // console.log(error.response.data.message)
         throw new Error(error.response.data.message);
     }
 }
@@ -58,7 +56,6 @@ export const verif = async (e: Otp) => {
         });
         return res.data
     } catch (error:any) {
-        // console.log(error.response.data.message)
         throw new Error(error.response.data.message);
     }
 }

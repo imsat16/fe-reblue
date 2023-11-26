@@ -1,8 +1,13 @@
 {
     "admin": [
         {
+            "icons": "MdOutlineGroups",
+            "menu":"Dashboad",
+            "route":"/home/admin"
+        },
+        {
             "icons": "BiCategoryAlt",
-            "menu":"category",
+            "menu":"Category",
             "route":"/categories"
         }
     ],

@@ -12,8 +12,6 @@ const Sidebar = () => {
   const pathname = usePathname()
   const role = roles;
 
-  console.log(pathname)
-
   const getPage = () => {
     return "/" + pathname.split("/")[1];
   };

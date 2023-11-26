@@ -40,7 +40,6 @@ const HomePages = () => {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file: any = event.target.files?.[0];
-    console.log(file)
     if (file) {
       setPreviewImage(URL.createObjectURL(file));
       setSelectedImage(file);
@@ -83,9 +82,8 @@ const HomePages = () => {
 
     getItemList().then((res: any) => {
       setItemList(res.data);
-      console.log(res.data);
     }).catch((err) => {
-      console.error
+      console.error(err)
     })
 
   }, [])
@@ -102,9 +100,8 @@ const HomePages = () => {
   async function MyLocation() {
     getMyLocation().then((res: any) => {
       setLocList(res.data);
-      console.log(res.data);
     }).catch((err) => {
-      console.error
+      console.error(err)
     })
   }
 
@@ -130,7 +127,6 @@ const HomePages = () => {
       };
     });
     setActivedCategory(params);
-    console.log({ params })
     setSelected(updatedSelected);
   }
 
@@ -203,7 +199,6 @@ const HomePages = () => {
       setTimeout(() => {
         setSuccess(false)
       }, 5000);
-      console.log(res)
     })
 
     const xyz = {
@@ -211,7 +206,6 @@ const HomePages = () => {
       items: data,
       location_id: selectedLoc?._id
     }
-    console.log(xyz);
   }
 
   return (
@@ -299,7 +293,7 @@ const HomePages = () => {
                     {
                       itemList.length < 1 ? 'loading' : itemList?.map((_: any, i: number) => {
                         return (
-                          <div key={i} onClick={() => console.log(itemList)} className="border rounded-lg p-2 px-4 flex justify-between items-center w-full">
+                          <div key={i} className="border rounded-lg p-2 px-4 flex justify-between items-center w-full">
                             <div className="flex items-center">
                               {/* <div className="h-20 w-20 border flex items-center justify-center">
                               {_.category}
@@ -321,9 +315,6 @@ const HomePages = () => {
                   :
                   <div className="flex flex-col items-start gap-4 p-4 pt-0">
                     <button className='flex items-center gap-.5' onClick={() => setHide(true)}> <span className='text-2xl'><BsArrowLeftShort /></span> Back</button>
-                    {/* {mergedData.map((x,y) => (
-                  <p key={y} onClick={()=>console.log(mergedData)} className={x.item_id ? 'text-red-500' : ''}>{x.title}</p>
-                ))} */}
                     {
                       selected?.map((_: any, i: any) => {
                         const category = categoryMap[_.item_id];
@@ -331,10 +322,9 @@ const HomePages = () => {
                         const weight = weightData[_.item_id] ?? null;
                         return (
                           <div key={i} className=" w-full">
-                            <div onClick={() => console.log(JSON.stringify(selected))} className="flex justify-between items-center">
+                            <div className="flex justify-between items-center">
 
-                              {/* <p onClick={()=>console.log(data)} className={_.item_id === activedCategory.jenis[i].item_id ? 'text-red-500' : ''}>{_.title}</p> */}
-                              <p onClick={() => console.log({ weight })} className={itemSelected ? '' : 'text-blue-500'}>{_.name}</p>
+                              <p className={itemSelected ? '' : 'text-blue-500'}>{_.name}</p>
                               <div className="flex gap-2 ">
                                 <div className="border rounded-lg p-1">
                                   <input

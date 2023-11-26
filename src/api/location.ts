@@ -46,7 +46,7 @@ export const createLocation = async (req:Location) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }
@@ -64,7 +64,7 @@ export const changeLocation = async (req:Location, id:string) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }
@@ -81,7 +81,7 @@ export const removeLocation = async (id:string) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }

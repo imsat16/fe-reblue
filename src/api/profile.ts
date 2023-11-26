@@ -1,7 +1,7 @@
 import { api, token } from "./api";
 
 interface Pict {
-    avatar : FormData
+    avatar : FormData | null
 }
 
 interface Info {
@@ -24,18 +24,18 @@ export async function getMyProfile() {
 
 export const changePict = async (pict:Pict) => {
     try {
-        const res = await api.post(`/admin/artikel`, pict,
+        const res = await api.put(`/user/avatar`, pict,
         {
             data: pict,
             headers:{
                 'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`
+                Authorization: `${token}`
             },
         }
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }
@@ -52,7 +52,7 @@ export const changeInfo = async (req:Info) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }

@@ -25,7 +25,7 @@ export const reqJemput = async (req:RequestJemput) => {
         );
         return res.data
     } catch (error:any) {
-      // console.log("ini", error.response.data.message)
+      
         throw new Error(error.response.data.message);
     }
 }
